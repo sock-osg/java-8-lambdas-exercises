@@ -5,12 +5,12 @@ import com.insightfullogic.java8.examples.chapter1.SampleData;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.unmodifiableList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -18,16 +18,17 @@ public class RefactorTest {
 
     @Test
     public void allStringJoins() {
-        List<Supplier<Refactor.LongTrackFinder>> finders = Arrays.<Supplier<Refactor.LongTrackFinder>>asList(
+        Stream<Supplier<Refactor.LongTrackFinder>> finders = Stream.of(
             Refactor.Step0::new,
             Refactor.Step1::new,
             Refactor.Step2::new,
             Refactor.Step3::new,
-            Refactor.Step4::new
+            Refactor.Step4::new,
+            Refactor.Step5::new
         );
 
-        List<Album> albums = unmodifiableList(asList(SampleData.aLoveSupreme, SampleData.sampleShortAlbum));
-        List<Album> noTracks = unmodifiableList(asList(SampleData.sampleShortAlbum));
+        List<Album> albums = Collections.unmodifiableList(Arrays.asList(SampleData.aLoveSupreme, SampleData.sampleShortAlbum));
+        List<Album> noTracks = Collections.unmodifiableList(Collections.singletonList(SampleData.sampleShortAlbum));
 
         finders.forEach(finder -> {
             System.out.println("Testing: " + finder.toString());
@@ -42,5 +43,4 @@ public class RefactorTest {
             assertTrue(longTracks.isEmpty());
         });
     }
-
 }

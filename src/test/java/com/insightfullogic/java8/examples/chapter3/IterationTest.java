@@ -8,12 +8,14 @@ public class IterationTest {
     @Test
     public void lazyPrintOuts() {
         Iteration iteration = new Iteration();
+        // lazy recipe
         iteration.filterArtistsFromLondonPrinted(SampleData.membersOfTheBeatles);
     }
 
     @Test
     public void evaluatedPrintOuts() {
         Iteration iteration = new Iteration();
+        // eager recipe
         iteration.internalCountArtistsFromLondonPrinted(SampleData.membersOfTheBeatles);
     }
 }
